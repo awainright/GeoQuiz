@@ -1,5 +1,4 @@
 package sourceCode;
-
 import java.util.*;
 
 /**
@@ -53,7 +52,7 @@ public class Coach
 	 * @param bw
 	 * @return ture or false
 	 */
-	public boolean addAthlete(String fn, String ln, char gen, char com, int cl, int sn, int bs, int dl, int ro, int ru, int bw)
+	public boolean addAthlete(String fn, String ln, String gen, char com, int cl, int sn, int bs, int dl, int ro, int ru, int bw)
 	{
 		Athlete temp = searchForAthlete(fn, ln);
 		if (temp == null)
