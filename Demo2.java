@@ -1,3 +1,5 @@
+Author: Jared Decker
+
 package sourceCode;
 
 import java.io.File;
