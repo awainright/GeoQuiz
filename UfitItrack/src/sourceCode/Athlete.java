@@ -301,7 +301,7 @@ public class Athlete implements Comparable <Athlete>
 	public String toString()
 	{
 		String name = this.firstname.concat(" "+this.lastname);
-		return  "\n\nName: "+name+"\n " + "FitScore: " + this.fitscore +"\nInformation: \nGender:"+
+		return  "\n\nName: "+name+"\n" + "FitScore: " + this.fitscore +"\nInformation: \nGender:"+
 				this.gender+"\nClean weight: "+this.clean+"\nSnatch weight: "+this.snatch+
 				"\nBack Squat: "+this.backsquat+"\nDeadlift: "+this.deadlift+"\nRow: "+this.row+
 				"\nRun time: "+this.run+"\nBodyweight: "+this.bodyweight;

@@ -52,12 +52,11 @@ public class Coach
 	 * @param bw
 	 * @return ture or false
 	 */
-	public boolean addAthlete(String fn, String ln, String gen, char com, int cl, int sn, int bs, int dl, int ro, int ru, int bw)
+	public boolean addAthlete(Athlete a)
 	{
-		Athlete temp = searchForAthlete(fn, ln);
+		Athlete temp = searchForAthlete(a.getFirstName(), a.getLastName());
 		if (temp == null)
 		{
-			Athlete a = new Athlete(fn, ln, gen, com, cl, sn, bs, dl, ro, ru, bw);
 			athletes.add(a);
 			return true;
 		}
@@ -85,6 +84,7 @@ public class Coach
 		}
 		else
 		{
+			System.out.println("Athlete " + firstname + " " + lastname + " removed");
 			return athletes.remove(temp);
 		}
 	}
@@ -107,6 +107,14 @@ public class Coach
 			}
 		}
 		return temp;
+	}
+	
+	public void printList(ArrayList<Athlete> a)
+	{
+		for (int i = 0; i < a.size(); i++)
+		{
+			System.out.println(a.get(i).toString());
+		}
 	}
 	
 }

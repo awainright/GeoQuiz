@@ -1,106 +1,136 @@
 package sourceCode;
-/**
- * @author Adam Wainright
- */
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class DemoProgram {
-	public static Scanner kbd = new Scanner(System.in);
+public class Demo2 {
 	
-
-	private static Athlete createAthlete() {
-		
-		int		set;
-		String	fname,lname,gender;
-		
-		System.out.println("Please enter the Athlete's first name.\n");
-		fname = kbd.next();
-		System.out.print(fname);
-		System.out.println("Please enter the Athlete's last name.\n");
-		lname = kbd.next();
-		System.out.println("Please enter the Athlete's gender.(M/F/U)\n");
-		gender = kbd.next();
-		System.out.println(gender);
-		Athlete a = new Athlete(fname,lname,gender);
-		System.out.println("Please enter the Athlete's clean weight\n");
-		set = kbd.nextInt();
-		a.setClean(set);
-		System.out.println("Please enter the Athlete's snatch weight\n");
-		set = kbd.nextInt();
-		a.setSnatch(set);
-		System.out.println("Please enter the Athlete's back-squat weight\n");
-		set = kbd.nextInt();
-		a.setBackSquat(set);
-		System.out.println("Please enter the Athlete's Deadlift weight\n");
-		set = kbd.nextInt();
-		a.setDeadlift(set);
-		System.out.println("Please enter the Athlete's row time\n");
-		set = kbd.nextInt();
-		a.setRow(set);
-		System.out.println("Please enter the Athlete's run time\n");
-		set = kbd.nextInt();
-		a.setRun(set);
-		System.out.println("Please enter the Athlete's body weight\n");
-		set = kbd.nextInt();
-		a.setBodyWeight(set);
-		System.out.println("Auto-calculating FitScore\n");
-		a.FitScoreCal();
+	static Scanner kbd = new Scanner(System.in);
+	
+	
+	//Creates new athlete without workout information
+	private static Athlete createNewAthlete() 
+	{
+		System.out.println("First name: ");
+		String first = kbd.next();
+		System.out.println("Last name: ");
+		String last = kbd.next();
+		System.out.println("Gender (M/F/U): ");
+		String gender = kbd.next();
+		System.out.println("Clean: ");
+		char com = 'y';
+		int cl = kbd.nextInt();
+		System.out.println("Snatch: ");
+		int sn = kbd.nextInt();
+		System.out.println("Backsquat: ");
+		int bs = kbd.nextInt();
+		System.out.println("Deadlift: ");
+		int dl = kbd.nextInt();
+		System.out.println("Row: ");
+		int ro = kbd.nextInt();
+		System.out.println("Run: ");
+		int ru = kbd.nextInt();
+		System.out.println("Bodyweight: ");
+		int bw = kbd.nextInt();
+		Athlete a = new Athlete(first, last, gender, com, cl, sn, bs, dl, ro, ru, bw);
 		return a;
 		
-		
-		
 	}
 	
-	public static void main(String[] args) {
-		boolean control = true;
-		int 	classControl;
-		PrintWriter outStream =null;
-		try {
-				outStream = new PrintWriter("data.txt");
-		}
-		catch(IOException e) {
-			System.out.println("Error.\n");
-			System.exit(1);
-		}
+	
+	/*private static Coach createNewCoach()
+	{
 		
-		Scanner inStream = null;
-		
-		try {
-				inStream = new Scanner(new File("data.txt"));
-			}
-		catch (FileNotFoundException e){
-				System.out.println("File not found.\n");
-				System.exit(1);
-					
-			}
-		do {
-			System.out.println("\t\t**MAIN MENU**\n\nPlease choose by"
-					+ "entering the preceding number.\n\n"
-					+ "[0]: Add Athlete."
-					+ "\n[1]: Exit.");
-			classControl = kbd.nextInt();
-			
-			if(classControl == 0) {
-				System.out.println("You choose option1.\n");
-				Athlete a = createAthlete();
-				outStream.println(a);
-				
-				
-			}
-			else {
-				System.out.println("Goodbye...");
-				control = false;
-			}
-			
-		}while(control);
-		outStream.close();
-		
-		
-		
+		Coach c = new Coach();
+	}*/
+	
 
-	}
-	
+	public static void main(String[] args) throws IOException {
+		int control = 0;
+		
+		while (control == 0)
+		{
+			System.out.println("Please choose one of the following: \n\n1.) Athlete\n2.) Coach\n3.) Quit");
+			int choice1 = kbd.nextInt();
+			PrintWriter outStream =null;
+			Athlete a = null;
+		
+			if (choice1 == 1)
+			{
+				a = createNewAthlete();
+		
+				try {
+					outStream = new PrintWriter(new FileOutputStream("athletes.txt", true));
+					outStream.print(a.toString());
+				}
+				catch(IOException e) {
+					System.out.println("Error");
+					System.exit(1);
+				}
+				System.out.println("Information recorded\n");
+			}
+			else if (choice1 == 2)
+			{
+				int control2 = 0;
+				Coach c = new Coach();
+				while (control2 == 0)
+				{
+					System.out.println("Please choose one of the following: \n\n1.) Search for athlete\n2.) "
+							+ "Add athlete\n3.) Remove athlete\n4.) Show all compliant athletes\n5.) Quit");
+					int choice2 = kbd.nextInt();
+					if (choice2 == 1)
+					{
+						System.out.println("Athletes first name: ");
+						String first = kbd.next();
+						System.out.println("Athletes last name: ");
+						String last = kbd.next();
+						Athlete temp = c.searchForAthlete(first, last);
+						if (temp == null)
+						{
+							System.out.println("\nAthlete not found");
+						}
+						else
+						{
+							System.out.println("\nAthlete found:");
+							System.out.println(temp.toString());
+						}
+					}
+					else if (choice2 == 2)
+					{
+						Athlete temp = createNewAthlete();
+						c.addAthlete(temp);
+					}
+					else if(choice2 == 3)
+					{
+						System.out.println("Athletes first name: ");
+						String first = kbd.next();
+						System.out.println("Athletes last name: ");
+						String last = kbd.next();
+						c.removeAthlete(first, last);
+					}
+					else if(choice2 == 4)
+					{
+						ArrayList<Athlete> fitScores = c.getFitScores();
+						c.printList(fitScores);
+					}
+					else
+					{
+						control2 = 1;
+					}
+					}
+				
+				}
+			else
+			{
+				control = 1;
+			}
+			}
+		}
 
 }
