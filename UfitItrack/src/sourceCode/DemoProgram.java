@@ -13,8 +13,7 @@ public class Demo2 {
 	
 	static Scanner kbd = new Scanner(System.in);
 	
-	
-	//Creates new athlete without workout information
+	//Creates athlete
 	private static Athlete createNewAthlete() 
 	{
 		System.out.println("First name: ");
@@ -42,13 +41,6 @@ public class Demo2 {
 		return a;
 		
 	}
-	
-	
-	/*private static Coach createNewCoach()
-	{
-		
-		Coach c = new Coach();
-	}*/
 	
 
 	public static void main(String[] args) throws IOException {
