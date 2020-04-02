@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Demo2 {
+public class DemoProgram {
 	
 	static Scanner kbd = new Scanner(System.in);
 	
