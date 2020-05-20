@@ -41,12 +41,20 @@ class MainActivity : AppCompatActivity() {
            checkAnswer(false)
         }
         nextButton.setOnClickListener {
-            currentIndex =(currentIndex + 1) % questionBank.size
-            updateQuestion()
+            advanceQuestion()
+        }
+
+        questionTextView.setOnClickListener{
+            advanceQuestion()
         }
 
         updateQuestion()
 
+    }
+
+    private fun advanceQuestion() {
+        currentIndex = (currentIndex + 1) % questionBank.size
+        updateQuestion()
     }
 
     override fun onStart() {
