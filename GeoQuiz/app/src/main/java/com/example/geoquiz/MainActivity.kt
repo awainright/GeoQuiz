@@ -3,6 +3,7 @@ package com.example.geoquiz
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.widget.Button
 import android.widget.Toast
 import android.widget.TextView
@@ -87,6 +88,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             R.string.incorrect_toast
         }
-        Toast.makeText(this, messageId, Toast.LENGTH_SHORT).show()
+        val  toast = Toast.makeText(this, messageId, Toast.LENGTH_SHORT)
+        toast.setGravity(Gravity.TOP,0,150)
+        toast.show()
     }
 }
